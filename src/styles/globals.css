@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'OCRAStd';
+    src: url('/fonts/ProtoMono-Regular.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@layer base {
+    body {
+        @apply antialiased;
+        font-family: 'OCRAStd', monospace !important;
+        font-weight: 600;
+    }
+}
+
+@layer components {
+    .terminal-text {
+        font-family: 'OCRAStd', monospace !important;
+        color: #ff3333 !important;
+    }
+
+    .terminal-bg {
+        @apply bg-[#e1e1e1] dark:bg-[#e0e0e0];
+    }
+}
+
+/* Links */
+a {
+    color: #ff3333 !important;
+    transition: color 0.2s ease;
+    font-family: 'OCRAStd', monospace !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-gray-200 dark:bg-gray-200;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 dark:bg-gray-400;
+    border-radius: 4px;
+}
+
+/* Selection color */
+::selection {
+    @apply bg-[#ff3333] bg-opacity-30 text-current;
+}
+
+/* Prose overrides for MDX content */
+.prose {
+    font-family: 'OCRAStd', monospace !important;
+}
+
+.prose a {
+    text-decoration: none !important;
+}
+
+.prose a:hover {
+    text-decoration: underline !important;
+}
+
+.paper-texture {
+    background-color: white;
+    background-size: 20px 20px;
+    box-shadow: -20px 20px 30px rgba(0, 0, 0, 0.21),
+    0 1px 2px rgba(0, 0, 0, 0.24),
+    inset 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.paper-texture:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background-image: url('/textured-paper.png');
+    opacity: 0.4;
+}
+
+@keyframes paper-shadow {
+    0% {
+        box-shadow: none;
+    }
+    50% {
+        box-shadow: 10px 10px 10px #373737;
+    }
+    100% {
+        box-shadow: -50px -50px 30px rgba(0, 0, 0, 0.21),
+        0 1px 2px rgba(0, 0, 0, 0.24),
+        inset 0 0 20px rgba(0, 0, 0, 0.05);
+    }
+ }
