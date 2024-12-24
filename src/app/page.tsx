@@ -20,11 +20,11 @@ const sections = [
 ];
 
 const HoverCard = () => {
-  const [mouseX, setMouseX] = useState(-68);
-  const [mouseY, setMouseY] = useState(-27);
+  const [mouseX, setMouseX] = useState(-78);
+  const [mouseY, setMouseY] = useState(-47);
   const cardRef = useRef<HTMLDivElement>(null)
   const transform = useMotionValue('rotateX(0deg)');
-  const angle = 15;
+  const angle = 7.5;
 
   const [shadow, setShadow] = useState('0px 0px 0px rgba(0, 0, 0, 0)');
 
@@ -37,7 +37,7 @@ const HoverCard = () => {
       const relativeX = Math.round(x - cardCenterX);
       const relativeY = Math.round(y - cardCenterY);
       setMouseX(relativeX);
-      setMouseY(relativeY - 100);
+      setMouseY(relativeY - 120);
     }
   };
 
