@@ -36,8 +36,8 @@ const HoverCard = () => {
 
       const relativeX = Math.round(x - cardCenterX);
       const relativeY = Math.round(y - cardCenterY);
-      setMouseX(relativeX -68);
-      setMouseY(relativeY -27);
+      setMouseX(relativeX);
+      setMouseY(relativeY - 100);
     }
   };
 
