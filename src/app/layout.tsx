@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-[#e0e0e0] text-[#ff3333] font-['OCRAStd']">
+      <body className="bg-[#e1e1e1] text-[#ff3333] font-['OCRAStd']">
         <ThemeProvider>
           {children}
         </ThemeProvider>

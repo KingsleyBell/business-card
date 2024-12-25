@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useMotionValue, Transition, PanInfo } from "framer-motion";
+import { motion, useMotionValue, animate, useSpring, useMotionTemplate } from "framer-motion";
 import {useEffect, useRef, useState} from "react";
 import Link from 'next/link';
 
@@ -19,14 +19,36 @@ const sections = [
     },
 ];
 
-const HoverCard = () => {
-  const [mouseX, setMouseX] = useState(-78);
-  const [mouseY, setMouseY] = useState(-47);
-  const cardRef = useRef<HTMLDivElement>(null)
-  const transform = useMotionValue('rotateX(0deg)');
-  const angle = 7.5;
+const stiffness = 100;
+const damping = 10;
+const mass = 0.05;
 
-  const [shadow, setShadow] = useState('0px 0px 0px rgba(0, 0, 0, 0)');
+const HoverCard = () => {
+  const mouseX = useSpring(0, {
+    stiffness: 50,
+    damping: 15,
+    mass: 0.5
+  });
+  const mouseY = useSpring(0, {
+    stiffness: 50,
+    damping: 15,
+    mass: 0.5
+  });
+  const rotateX = useSpring(0, {
+    stiffness: stiffness,
+    damping: damping,
+    mass: mass
+  });
+  const rotateY = useSpring(0, {
+    stiffness: stiffness,
+    damping: damping,
+    mass: mass
+  });
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [shadow, setShadow] = useState('33px 58px 30px rgba(0, 0, 0, 0.2)');
+  const angle = 7.5;
+  const [isPanning, setIsPanning] = useState(false);
+  const lastPanTime = useRef(0);
 
   const handleMove = (x: number, y: number) => {
     if (cardRef.current) {
@@ -36,8 +58,10 @@ const HoverCard = () => {
 
       const relativeX = Math.round(x - cardCenterX);
       const relativeY = Math.round(y - cardCenterY);
-      setMouseX(relativeX);
-      setMouseY(relativeY - 120);
+      
+      // Reduce sensitivity for touch devices
+      mouseX.set(relativeX);
+      mouseY.set((relativeY));
     }
   };
 
@@ -45,46 +69,78 @@ const handlePan = (e: Event, info: PanInfo) => {
     const target = e.target as HTMLElement;
     if (target.tagName === 'A' || target.closest('a')) return;
 
+    // Throttle to run at most every 16ms (roughly 60fps)
+    const now = Date.now();
+    if (now - lastPanTime.current < 16) return;
+    lastPanTime.current = now;
+
     if (cardRef.current) {
       const rect = cardRef.current.getBoundingClientRect();
+      const sensitivity = 'ontouchstart' in window ? 2 : 2;
+      setIsPanning(true);
+      
       handleMove(
-        rect.left + rect.width/2 + info.offset.x * 2,
-        rect.top + rect.height/2 + info.offset.y * 2
+        rect.left + rect.width/2 + info.offset.x * sensitivity,
+        rect.top + rect.height/2 + info.offset.y * sensitivity
       );
     }
   };
 
   const handlePanEnd = () => {
-    // setMouseX(-68);
-    // setMouseY(-27);
+    lastPanTime.current = 0;
+    setIsPanning(false);
   };
 
   useEffect(() => {
     if (cardRef.current) {
       const rect = cardRef.current.getBoundingClientRect();
-      const width = rect.width
-      const height = rect.height
-      const degX = (width/angle)*0.1
-      const degY = (height/angle)*0.1
-      const rx = -(mouseY / degY)
-      const ry = (mouseX / degX)
+      const width = rect.width;
+      const height = rect.height;
+      const degX = (width/angle)*0.1;
+      const degY = (height/angle)*0.1;
 
-      // Calculate shadow based on rotation with top-left light source
-      const shadowOffset = 90;
-      let shadowX = Math.abs(Math.sin(ry * (Math.PI / 180)) * shadowOffset);
-      let shadowY = Math.abs(Math.sin(rx * (Math.PI / 180)) * shadowOffset);
+      const unsubscribeX = mouseX.on("change", latest => {
+        const ry = (latest / degX);
+        rotateY.set(ry);
 
-      // Adjust shadow direction based on rotation direction
-      shadowX = ry > 0 ? shadowX : -shadowX;
-      shadowY = rx > 0 ? shadowY : -shadowY;
+        // Update shadow X component
+        const shadowOffset = 90;
+        let shadowX = Math.abs(Math.sin(ry * (Math.PI / 180)) * shadowOffset);
+        shadowX = ry > 0 ? shadowX : -shadowX;
+        
+        // Get current Y shadow from rotateX
+        const rx = rotateX.get();
+        let shadowY = Math.abs(Math.sin(rx * (Math.PI / 180)) * shadowOffset);
+        shadowY = rx > 0 ? shadowY : -shadowY;
 
-      const newShadow = `${shadowX}px ${shadowY}px 30px rgba(0, 0, 0, 0.2)`;
-      setShadow(newShadow);
+        console.log(`${shadowX}px ${shadowY}px 30px rgba(0, 0, 0, 0.2)`);
+        console.log(rotateX, rotateY);
+        setShadow(`${shadowX}px ${shadowY}px 30px rgba(0, 0, 0, 0.2)`);
+      });
 
-      const newTransform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-      transform.set(newTransform);
+      const unsubscribeY = mouseY.on("change", latest => {
+        const rx = -(latest / degY);
+        rotateX.set(rx);
+
+        // Update shadow Y component
+        const shadowOffset = 90;
+        let shadowY = Math.abs(Math.sin(rx * (Math.PI / 180)) * shadowOffset);
+        shadowY = rx > 0 ? shadowY : -shadowY;
+
+        // Get current X shadow from rotateY
+        const ry = rotateY.get();
+        let shadowX = Math.abs(Math.sin(ry * (Math.PI / 180)) * shadowOffset);
+        shadowX = ry > 0 ? shadowX : -shadowX;
+
+        setShadow(`${shadowX}px ${shadowY}px 30px rgba(0, 0, 0, 0.2)`);
+      });
+
+      return () => {
+        unsubscribeX();
+        unsubscribeY();
+      };
     }
-  }, [mouseX, mouseY]);
+  }, []);
 
   useEffect(() => {
     const handleGlobalMouseMove = (e: MouseEvent) => {
@@ -99,21 +155,26 @@ const handlePan = (e: Event, info: PanInfo) => {
   }, []);
 
   return (
-    <main className="min-h-screen flex items-center justify-center">
+    <motion.main 
+      className="min-h-screen flex items-center justify-center"
+      onPan={handlePan}
+      onPanEnd={handlePanEnd}
+    >
       <section className="w-full flex items-center justify-center py-2">
         <div ref={cardRef} className="relative">
           <motion.div
-            onPan={handlePan}
-            onPanEnd={handlePanEnd}
             layout={true}
             transition={trans}
+            initial={{
+              transform: "perspective(1000px) rotateX(40deg) rotateY(32deg)"
+            }}
             style={{
-              transform,
+              transform: useMotionTemplate`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
               boxShadow: shadow
             }}
-            className="max-w-md w-full mx-4 px-8 pt-12 text-center paper-texture touch-none select-none"
+            className="max-w-xs w-full mx-4 px-8 pt-8 text-center paper-texture touch-none select-none"
           >
-            <p className="mb-12 text-xl text-gray-800">
+            <p className="mb-8 text-xl text-gray-800">
               <span className="inline-block terminal-text select-none">
                 luke bell
               </span>
@@ -136,7 +197,7 @@ const handlePan = (e: Event, info: PanInfo) => {
           </motion.div>
         </div>
       </section>
-    </main>
+    </motion.main>
   )
 }
 

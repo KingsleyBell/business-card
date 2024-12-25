@@ -25,7 +25,7 @@
     }
 
     .terminal-bg {
-        @apply bg-[#e1e1e1] dark:bg-[#e0e0e0];
+        @apply bg-[#ff3333] dark:bg-[#ff333];
     }
 }
 
