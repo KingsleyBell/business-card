@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useMotionValue, animate, useSpring, useMotionTemplate } from "framer-motion";
+import { motion, useSpring, useMotionTemplate, PanInfo, Transition } from "framer-motion";
 import {useEffect, useRef, useState} from "react";
 import Link from 'next/link';
 
@@ -47,7 +47,6 @@ const HoverCard = () => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [shadow, setShadow] = useState('33px 58px 30px rgba(0, 0, 0, 0.2)');
   const angle = 7.5;
-  const [isPanning, setIsPanning] = useState(false);
   const lastPanTime = useRef(0);
 
   const handleMove = (x: number, y: number) => {
@@ -77,7 +76,6 @@ const handlePan = (e: Event, info: PanInfo) => {
     if (cardRef.current) {
       const rect = cardRef.current.getBoundingClientRect();
       const sensitivity = 'ontouchstart' in window ? 2 : 2;
-      setIsPanning(true);
       
       handleMove(
         rect.left + rect.width/2 + info.offset.x * sensitivity,
@@ -88,7 +86,6 @@ const handlePan = (e: Event, info: PanInfo) => {
 
   const handlePanEnd = () => {
     lastPanTime.current = 0;
-    setIsPanning(false);
   };
 
   useEffect(() => {
