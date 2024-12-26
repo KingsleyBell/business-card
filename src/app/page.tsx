@@ -171,21 +171,19 @@ const handlePan = (e: Event, info: PanInfo) => {
             }}
             className="max-w-xs w-full mx-4 px-8 pt-8 text-center paper-texture touch-none select-none"
           >
-            <p className="mb-8 text-xl text-gray-800">
+            <div className="relative mb-8 text-xl z-10">
               <span className="inline-block terminal-text select-none">
                 luke bell
               </span>
-            </p>
+            </div>
             <hr></hr>
-            <div
-              className="flex items-center justify-between mt-12 mb-2 relative z-10"
-            >
+            <div className="flex items-center justify-between mt-12 mb-2 relative z-10">
               {sections.map((section) => (
                 <Link
                   key={section.name}
                   href={section.link}
                   target="_blank"
-                  className="block group mb-1 px-4 py-2 text-gray-700 font-light hover:bg-gray-200 transition-colors relative overflow-hidden select-none"
+                  className="block group mb-1 px-4 py-2 font-light transition-colors relative overflow-hidden select-none terminal-text"
                 >
                   {section.name}
                 </Link>

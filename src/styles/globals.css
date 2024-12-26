@@ -18,20 +18,18 @@
     }
 }
 
-@layer components {
-    .terminal-text {
-        font-family: 'OCRAStd', monospace !important;
-        color: #ff3333 !important;
-    }
 
-    .terminal-bg {
-        @apply bg-[#ff3333] dark:bg-[#ff333];
-    }
+.terminal-text {
+    /* text-shadow:0.1px 0.1px 0.5px rgba(150, 150, 150, 1); */
+    color: rgba(255, 0, 0, 0.8);
+    /* opacity: 0.5; */
+    background-clip: text;
+    background-size: cover;
+    background-image: url('/sand.jpg');
 }
 
 /* Links */
-a {
-    color: #ff3333 !important;
+a {    
     transition: color 0.2s ease;
     font-family: 'OCRAStd', monospace !important;
 }
@@ -49,11 +47,6 @@ a {
 ::-webkit-scrollbar-thumb {
     @apply bg-gray-400 dark:bg-gray-400;
     border-radius: 4px;
-}
-
-/* Selection color */
-::selection {
-    @apply bg-[#ff3333] bg-opacity-30 text-current;
 }
 
 /* Prose overrides for MDX content */
