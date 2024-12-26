@@ -19,20 +19,20 @@ const sections = [
     },
 ];
 
-const stiffness = 100;
-const damping = 10;
+const stiffness = 10;
+const damping = 5;
 const mass = 0.05;
 
 const HoverCard = () => {
   const mouseX = useSpring(0, {
-    stiffness: 50,
-    damping: 15,
-    mass: 0.5
+    stiffness: stiffness,
+    damping: damping,
+    mass: mass
   });
   const mouseY = useSpring(0, {
-    stiffness: 50,
-    damping: 15,
-    mass: 0.5
+    stiffness: stiffness,
+    damping: damping,
+    mass: mass
   });
   const rotateX = useSpring(0, {
     stiffness: stiffness,
@@ -55,12 +55,11 @@ const HoverCard = () => {
       const cardCenterX = rect.left + rect.width / 2;
       const cardCenterY = rect.top + rect.height / 2;
 
-      const relativeX = Math.round(x - cardCenterX);
-      const relativeY = Math.round(y - cardCenterY);
+      const relativeX = Math.round((x - cardCenterX) * 1.7);
+      const relativeY = Math.round((y - cardCenterY) * 1.7);
       
-      // Reduce sensitivity for touch devices
       mouseX.set(relativeX);
-      mouseY.set((relativeY));
+      mouseY.set((relativeY - 150));
     }
   };
 
@@ -75,7 +74,7 @@ const handlePan = (e: Event, info: PanInfo) => {
 
     if (cardRef.current) {
       const rect = cardRef.current.getBoundingClientRect();
-      const sensitivity = 'ontouchstart' in window ? 2 : 2;
+      const sensitivity = 2;
       
       handleMove(
         rect.left + rect.width/2 + info.offset.x * sensitivity,
@@ -110,8 +109,6 @@ const handlePan = (e: Event, info: PanInfo) => {
         let shadowY = Math.abs(Math.sin(rx * (Math.PI / 180)) * shadowOffset);
         shadowY = rx > 0 ? shadowY : -shadowY;
 
-        console.log(`${shadowX}px ${shadowY}px 30px rgba(0, 0, 0, 0.2)`);
-        console.log(rotateX, rotateY);
         setShadow(`${shadowX}px ${shadowY}px 30px rgba(0, 0, 0, 0.2)`);
       });
 

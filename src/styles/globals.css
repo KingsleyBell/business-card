@@ -34,6 +34,10 @@ a {
     font-family: 'OCRAStd', monospace !important;
 }
 
+a:hover {
+    color: #d98383;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
