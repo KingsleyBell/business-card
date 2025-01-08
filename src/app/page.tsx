@@ -150,11 +150,11 @@ const handlePan = (e: Event, info: PanInfo) => {
 
   return (
     <motion.main 
-      className="min-h-screen flex items-center justify-center"
+      className="min-h-screen flex flex-col items-center justify-center"
       onPan={handlePan}
       onPanEnd={handlePanEnd}
     >
-      <section className="w-full flex items-center justify-center py-2">
+      <section className="w-full min-h-screen flex items-center justify-center py-2">
         <div ref={cardRef} className="relative">
           <motion.div
             layout={true}
@@ -189,6 +189,32 @@ const handlePan = (e: Event, info: PanInfo) => {
           </motion.div>
         </div>
       </section>
+      <section className="w-full min-h-screen flex items-center justify-center py-2">
+      <div className="grid-container">
+        <img src="img/1.png" alt="Image 1" />
+        <img src="img/2.png" alt="Image 2" />
+        <img src="img/3.png" alt="Image 3" />
+        <img src="img/4.png" alt="Image 4" />
+        <img src="img/5.png" alt="Image 5" />
+        <img src="img/6.png" alt="Image 6" />
+        <img src="img/7.png" alt="Image 7" />
+        <img src="img/8.png" alt="Image 8" />
+        <img src="img/9.png" alt="Image 9" />
+        <img src="img/10.png" alt="Image 10" />
+        <img src="img/11.png" alt="Image 1" />
+        <img src="img/12.png" alt="Image 12" />
+        <img src="img/13.png" alt="Image 13" />
+        <img src="img/14.png" alt="Image 14" />
+        <img src="img/15.png" alt="Image 15" />
+        <img src="img/16.png" alt="Image 16" />
+        <img src="img/17.png" alt="Image 17" />
+        <img src="img/18.png" alt="Image 18" />
+        <img src="img/19.png" alt="Image 19" />
+        <img src="img/20.png" alt="Image 20" />
+        <img src="img/21.png" alt="Image 21" />
+      </div>
+      </section>
+
     </motion.main>
   )
 }

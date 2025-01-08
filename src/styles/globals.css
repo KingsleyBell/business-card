@@ -99,3 +99,17 @@ a:hover {
         inset 0 0 20px rgba(0, 0, 0, 0.05);
     }
  }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(150px, 1fr)); /* Adjust the size as needed */
+    gap: 30px; /* Space between images */
+    padding: 20px; /* Optional padding */
+    width: 100%; /* Ensure it takes full width */
+}
+
+/* Add styles for the images */
+.grid-container img {
+    width: 100%; /* Make images responsive */
+    height: auto; /* Maintain aspect ratio */
+}
