@@ -103,8 +103,8 @@ a:hover {
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, minmax(150px, 1fr));
-    gap: 30px; /* Space between images */
-    padding: 20px; /* Optional padding */
+    gap: 60px; /* Space between images */
+    padding: 60px; /* Optional padding */
     width: 100%; /* Ensure it takes full width */
 }
 
@@ -116,6 +116,29 @@ a:hover {
 
 /* Add styles for the images */
 .grid-container img {
-    width: 100%; /* Make images responsive */
-    height: auto; /* Maintain aspect ratio */
+    width: 100%;
+    height: auto;
+    opacity: 0.8;
+}
+
+.grid-container img:hover {
+    transform: rotateY(180deg); /* Flip the image horizontally on hover */
+}
+
+.top-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 60px;
+    width: 75px;
+    height: auto;
+}
+
+.bottom-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 60px;
+    width: 75px;
+    height: auto;
 }
