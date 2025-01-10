@@ -50,8 +50,8 @@ const images = [
 ]
 
 const stiffness = 10;
-const damping = 5;
-const mass = 0.05;
+const damping = 10;
+const mass = 0.1;
 
 const HoverCard = () => {
   const mouseX = useSpring(0, {
@@ -232,12 +232,12 @@ const handlePan = (e: Event, info: PanInfo) => {
           </motion.div>
         </div>
       </section>
-      <section className="w-full min-h-screen flex items-center justify-center py-2">
-      <div className="grid-container">
-        {images.map((image) => (
-          <img key={image.alt} src={image.src} alt={image.alt} loading="lazy"/>
-        ))}        
-      </div>
+      <section className="w-full md:w-3/4 min-h-screen flex items-center justify-center py-2">
+        <div className="grid-container">
+          {images.map((image) => (
+            <img key={image.alt} src={image.src} alt={image.alt} loading="lazy"/>
+          ))}        
+        </div>
       </section>
 
     </motion.main>
