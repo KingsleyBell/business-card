@@ -103,15 +103,32 @@ a:hover {
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 60px; /* Space between images */
-    padding: 60px; /* Optional padding */
-    width: 100%; /* Ensure it takes full width */
+    gap: 60px;
+    padding: 60px;
+    width: 100%;
 }
 
 @media only screen and (max-width: 600px) {
     .grid-container {
         grid-template-columns: repeat(1, minmax(150px, 1fr));
-}
+        gap: 30px !important;
+        padding: 30px !important;
+    }
+    .top-left {
+        margin: 30px !important;
+        width: 40px !important;
+        height: auto;
+
+    }
+    .bottom-left {        
+        margin: 30px !important;
+    }
+    .bottom-right {
+        margin: 30px !important;
+        width: 40px !important;
+        height: auto;
+
+    }
 }
 
 /* Add styles for the images */
@@ -140,7 +157,6 @@ a:hover {
     bottom: 0;
     left: 0;
     margin: 60px;
-    width: 75px;
     height: auto;
     z-index: 100;
 }
