@@ -111,7 +111,7 @@ a:hover {
 @media only screen and (max-width: 600px) {
     .grid-container {
         grid-template-columns: repeat(1, minmax(150px, 1fr));
-    }
+}
 }
 
 /* Add styles for the images */
@@ -132,13 +132,41 @@ a:hover {
     margin: 60px;
     width: 75px;
     height: auto;
+    z-index: 100;
+}
+
+.bottom-left {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin: 60px;
+    width: 75px;
+    height: auto;
+    z-index: 100;
 }
 
 .bottom-right {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0;
     margin: 60px;
     width: 75px;
     height: auto;
+    z-index: 100;
+}
+
+.react-clock {
+    position: fixed !important;
+}
+
+.react-clock__face {
+    border: none !important;
+}
+
+.react-clock__mark__body {
+    background-color: red !important;
+}
+
+.react-clock__hand__body {
+    background-color: white !important;
 }

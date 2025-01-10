@@ -3,6 +3,9 @@
 import { motion, useSpring, useMotionTemplate, PanInfo, Transition } from "framer-motion";
 import {useEffect, useRef, useState} from "react";
 import Link from 'next/link';
+import Clock from 'react-clock';
+import { clearInterval } from "timers";
+import 'react-clock/dist/Clock.css';
 
 const sections = [
     {
@@ -73,6 +76,7 @@ const HoverCard = () => {
   });
   const cardRef = useRef<HTMLDivElement>(null);
   const [shadow, setShadow] = useState('33px 58px 30px rgba(0, 0, 0, 0.2)');
+  const [time, setTime] = useState(new Date());
   const angle = 7.5;
   const lastPanTime = useRef(0);
 
@@ -175,6 +179,14 @@ const handlePan = (e: Event, info: PanInfo) => {
     };
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => setTime(new Date()), 1000);
+
+    return () => {
+      clearInterval(interval);
+    }
+  }, [])
+
   return (
     <motion.main 
       className="min-h-screen flex flex-col items-center justify-center"
@@ -182,6 +194,7 @@ const handlePan = (e: Event, info: PanInfo) => {
       onPanEnd={handlePanEnd}
     >      
       <img src="rotate.png" alt="Top Left" className="top-left" />
+      <Clock value={time} size="120px" locale="hu-HU" minuteMarksLength="0" hourMarksLength="15" hourMarksWidth="4" hourHandWidth="5" minuteHandWidth="3" secondHandLength="80" className="bottom-left" />
       <img src="down.png" alt="Bottom Right" className="bottom-right" />
 
       <section className="w-full min-h-screen flex items-center justify-center py-2">
