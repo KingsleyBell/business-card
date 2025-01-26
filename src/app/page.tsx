@@ -193,7 +193,7 @@ const handlePan = (e: Event, info: PanInfo) => {
       onPan={handlePan}
       onPanEnd={handlePanEnd}
     >      
-      <img src="rotate.png" alt="Top Left" className="right" />
+      <img src="rotate.png" alt="Top Left" className="top-right" />
       <Clock value={time} size={120} minuteMarksLength={0} hourMarksLength={15} hourMarksWidth={4} hourHandWidth={5} minuteHandWidth={3} secondHandLength={80} className="bottom-left" />
 
       <section className="w-full min-h-screen flex items-center justify-center py-2">
