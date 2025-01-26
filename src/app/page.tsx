@@ -22,33 +22,6 @@ const sections = [
     },
 ];
 
-const images = [
-  {src: "img/1.png", alt: "1"},
-  {src: "img/2.png", alt: "2"},
-  {src: "img/3.png", alt: "3"},
-  {src: "img/4.png", alt: "4"},
-  {src: "img/5.png", alt: "5"},
-  {src: "img/6.png", alt: "6"},
-  {src: "img/7.png", alt: "7"},
-  {src: "img/8.png", alt: "8"},
-  {src: "img/9.png", alt: "9"},
-  {src: "img/10.png", alt: "10"},
-  {src: "img/11.png", alt: "11"},
-  {src: "img/12.png", alt: "12"},
-  {src: "img/13.png", alt: "13"},
-  {src: "img/14.png", alt: "14"},
-  {src: "img/15.png", alt: "15"},
-  {src: "img/16.png", alt: "16"},
-  {src: "img/17.png", alt: "17"},
-  {src: "img/18.png", alt: "18"},
-  {src: "img/19.png", alt: "19"},
-  {src: "img/20.png", alt: "20"},
-  {src: "img/21.png", alt: "21"},
-  {src: "img/22.png", alt: "22"},
-  {src: "img/23.png", alt: "23"},
-  {src: "img/24.png", alt: "24"},
-]
-
 const stiffness = 10;
 const damping = 10;
 const mass = 0.1;
