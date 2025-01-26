@@ -193,9 +193,8 @@ const handlePan = (e: Event, info: PanInfo) => {
       onPan={handlePan}
       onPanEnd={handlePanEnd}
     >      
-      <img src="rotate.png" alt="Top Left" className="top-left" />
+      <img src="rotate.png" alt="Top Left" className="right" />
       <Clock value={time} size={120} minuteMarksLength={0} hourMarksLength={15} hourMarksWidth={4} hourHandWidth={5} minuteHandWidth={3} secondHandLength={80} className="bottom-left" />
-      <img src="down.png" alt="Bottom Right" className="bottom-right" />
 
       <section className="w-full min-h-screen flex items-center justify-center py-2">
         <div ref={cardRef} className="relative">
@@ -230,13 +229,6 @@ const handlePan = (e: Event, info: PanInfo) => {
               ))}
             </div>
           </motion.div>
-        </div>
-      </section>
-      <section className="w-full md:w-3/4 min-h-screen flex items-center justify-center py-2">
-        <div className="grid-container">
-          {images.map((image) => (
-            <img key={image.alt} src={image.src} alt={image.alt} loading="lazy"/>
-          ))}        
         </div>
       </section>
 

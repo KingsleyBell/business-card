@@ -114,7 +114,7 @@ a:hover {
         gap: 30px !important;
         padding: 30px !important;
     }
-    .top-left {
+    .top-right {
         margin: 30px !important;
         width: 40px !important;
         height: auto;
@@ -142,10 +142,10 @@ a:hover {
     transform: rotateY(180deg); /* Flip the image horizontally on hover */
 }
 
-.top-left {
+.top-right {
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     margin: 60px;
     width: 75px;
     height: auto;
